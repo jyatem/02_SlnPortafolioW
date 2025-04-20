@@ -1,0 +1,52 @@
+﻿@* @model Persona
+
+@{
+    ViewData["Title"] = "Página de inicio";
+
+    string ConvertirMinuscula(string valor)
+    {
+        return valor.ToLower();
+    }
+
+    DateTime hoy = DateTime.Now;
+
+    var nombres = new List<string>() { "Jairo", "Lina", "Mariana", "Manuel" };
+}
+
+<div class="text-center">
+
+    <ul>
+        @foreach (var nombre in nombres)
+        {
+            <li>@nombre</li>
+        }
+    </ul>
+
+
+    <h1 class="display-4">Soy @ConvertirMinuscula(@Model.Nombre) (@Model.Edad)</h1>
+    <h2>Soy un desarrollador fulll stack especializado en tecnologías .NEt y JavaScript</h2>
+
+    <h4>@hoy.ToString("yyyy/MM/dd hh:mm:ss tt")</h4>
+
+    @if(Model.Edad >= 18)
+    {
+        <h4>Eres mayor de edad! <button>Entrar</button></h4>
+    }
+    else
+    {
+        <h4>Eres menor de edad!</h4>
+    }
+
+    <img src="~/imagenes/Foto.png" id="foto" />
+</div>
+ *@
+
+@model HomeIndexViewModel
+
+@{
+    ViewData["Title"] = "Página de inicio";
+}
+
+<partial name="_Presentacion" />
+
+<partial name="_Habilidades" />
