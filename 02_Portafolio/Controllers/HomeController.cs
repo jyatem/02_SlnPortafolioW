@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using _02_Portafolio.Models;
+using _02_Portafolio.Servicios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _02_Portafolio.Controllers
@@ -7,10 +8,12 @@ namespace _02_Portafolio.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IRepositorioProyectos repositorioProyectos;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IRepositorioProyectos repositorioProyectos)
         {
             _logger = logger;
+            this.repositorioProyectos = repositorioProyectos;
         }
 
         public IActionResult Index()
@@ -29,60 +32,10 @@ namespace _02_Portafolio.Controllers
             //return View(persona); 
             #endregion
 
-            var listadoProyectos = ObtenerProyectos().Take(3).ToList();
-            
+            var listadoProyectos = repositorioProyectos.ObtenerProyectos().Take(3).ToList();            
             var homeIndexViewModel = new HomeIndexViewModel() { Proyectos = listadoProyectos };
 
             return View(homeIndexViewModel);
-        }
-
-        private List<Proyecto> ObtenerProyectos()
-        {
-            #region Agregando elementos a una lista con el método Add
-            //var listadoProyecto = new List<Proyecto>();
-
-            //listadoProyecto.Add(new Proyecto()
-            //{
-            //    Titulo = "Amazon",
-            //    Descripcion = "E-Commerce realizado en ASP.NET Core",
-            //    Link = "https://amazon.com",
-            //    ImageURL = ""
-            //}); 
-            #endregion
-
-            var listadoProyecto = new List<Proyecto>()
-            {
-                new Proyecto()
-                {
-                    Titulo = "Amazon",
-                    Descripcion = "E-Commerce realizado en ASP.NET Core",
-                    Link = "https://amazon.com",
-                    ImageURL = "/imagenes/amazon.png"
-                },
-                new Proyecto()
-                {
-                    Titulo = "New York Times",
-                    Descripcion = "Página de noticias en React",
-                    Link = "https://nytimes.com",
-                    ImageURL = "/imagenes/nyt.png"
-                },
-                new Proyecto()
-                {
-                    Titulo = "Reddit",
-                    Descripcion = "Red social para compartir en comunidades",
-                    Link = "https://reddit.com",
-                    ImageURL = "/imagenes/reddit.png"
-                },
-                new Proyecto()
-                {
-                    Titulo = "Steam",
-                    Descripcion = "Tienda en línea para comprar videojuegos",
-                    Link = "https://store.steampowered.com",
-                    ImageURL = "/imagenes/steam.png"
-                },
-            };
-
-            return listadoProyecto;
         }
 
         public IActionResult Privacy()
