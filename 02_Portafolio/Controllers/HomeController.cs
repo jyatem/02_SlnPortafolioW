@@ -32,6 +32,13 @@ namespace _02_Portafolio.Controllers
             //return View(persona); 
             #endregion
 
+            _logger.LogTrace("Este es un mensaje de trace");
+            _logger.LogDebug("Este es un mensaje de debug");
+            _logger.LogInformation("Este es un mensaje de information");
+            _logger.LogWarning("Este es un mensaje de warning");
+            _logger.LogError("Este es un mensaje de error");
+            _logger.LogCritical("Este es un mensaje de critical");
+
             var listadoProyectos = repositorioProyectos.ObtenerProyectos().Take(3).ToList();            
             var homeIndexViewModel = new HomeIndexViewModel() { Proyectos = listadoProyectos };
 
